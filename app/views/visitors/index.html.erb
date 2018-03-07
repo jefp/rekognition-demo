@@ -1,8 +1,40 @@
 <div class="jumbotron">
   <h1 class="display-2">Welcome</h1>
   <p class="lead">
-    This web application was created with
-    <%= link_to('Rails Composer', 'http://railsapps.github.io/rails-composer/') %>
-    from the <%= link_to('RailsApps project', 'http://railsapps.github.io/') %>.
+      TEST
   </p>
+
+  <div id="my_camera"></div>
+  <!-- Configure a few settings and attach camera -->
+	<script language="JavaScript">
+		Webcam.set({
+			width: 320,
+			height: 240,
+			image_format: 'jpeg',
+			jpeg_quality: 90
+		});
+		Webcam.attach( '#my_camera' );
+	</script>
+
+	<!-- A button for taking snaps -->
+	<form>
+		<input type=button value="Take Photo" onClick="take_snapshot()">
+	</form>
+
+	<!-- Code to handle taking the snapshot and displaying it locally -->
+	<script language="JavaScript">
+		function take_snapshot() {
+			// take snapshot and get image data
+			Webcam.snap( function(data_uri) {
+				// display results in page
+				document.getElementById('results').innerHTML =
+					'<h2>Here is your image:</h2>' +
+					'<img src="'+data_uri+'"/>';
+			} );
+		}
+	</script>
+
+  <div id="results">Your captured image will appear here...</div>
+
+
 </div>
