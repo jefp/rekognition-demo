@@ -1,40 +1,139 @@
-<div class="jumbotron">
-  <h1 class="display-2">Welcome</h1>
-  <p class="lead">
-      TEST
-  </p>
+<header class="masthead bg-primary text-white text-center">
+  <div class="container">
+    <%= image_tag("profile.png", class: "img-fluid mb-5 d-block mx-auto") %>
+    <h1 class="text-uppercase mb-0"></h1>
+    <hr class="star-light">
+    <h2 class="font-weight-light mb-0">  <a href="https://aws.amazon.com/rekognition/"> <font color="#2c3e50">Amazon Rekognition</font></a> makes it easy to add image and video analysis to your applications. You just provide an image or video to the Rekognition API, and the service can identify the objects, people, text, scenes, and activities, as well as detect any inappropriate content. Amazon Rekognition also provides highly accurate facial analysis and facial recognition. You can detect, analyze, and compare faces for a wide variety of user verification, cataloging, people counting, and public safety use cases.</h2>
+  </div>
+</header>
 
-  <div id="my_camera"></div>
-  <!-- Configure a few settings and attach camera -->
-	<script language="JavaScript">
-		Webcam.set({
-			width: 320,
-			height: 240,
-			image_format: 'jpeg',
-			jpeg_quality: 90
-		});
-		Webcam.attach( '#my_camera' );
-	</script>
+<!-- Portfolio Grid Section -->
+<section class="add_image" id="add_image">
+  <div class="container">
+    <h2 class="text-center text-uppercase text-secondary mb-0">Add image to collection</h2>
+    <hr class="star-dark mb-5">
+    <div class="row">
+      <div class="col-md-6 col-lg-6">
+        <div id="camera_add"></div>
+        <form>
+          Name: <input type="text" id="name" name="name" required/>
+      		<input type=button value="Take Photo" onClick="camera_add()">
+      	</form>
 
-	<!-- A button for taking snaps -->
-	<form>
-		<input type=button value="Take Photo" onClick="take_snapshot()">
-	</form>
+        <script language="JavaScript">
+      		Webcam.set({
+      			width: 480,
+      			height: 320,
+      			image_format: 'jpeg',
+      			jpeg_quality: 80
+      		});
+      		Webcam.attach( '#camera_add' );
+      	</script>
 
-	<!-- Code to handle taking the snapshot and displaying it locally -->
-	<script language="JavaScript">
-		function take_snapshot() {
-			// take snapshot and get image data
-			Webcam.snap( function(data_uri) {
-				// display results in page
-				document.getElementById('results').innerHTML =
-					'<h2>Here is your image:</h2>' +
-					'<img src="'+data_uri+'"/>';
-			} );
-		}
-	</script>
+      	<!-- Code to handle taking the snapshot and displaying it locally -->
+      	<script language="JavaScript">
+      		function camera_add() {
+            if (!$('#name').val().trim().length)
+              { alert("Please enter your name"); return; }
+      			// take snapshot and get image data
+      			Webcam.snap( function(data_uri) {
+      				// display results in page
+      				document.getElementById('results').innerHTML =
+      					'<img height="240" width="160" src="'+data_uri+'"/>';
+                $.ajax({
+                  url: '/add',
+                  type: 'POST',
+                  data: {
+                    img: data_uri,
+                    name: $('#name').val()
+                  },
+                  timeout: 10000,
+                  success: function(data,x,y) {
+                    $('#results').append("<p>"+JSON.stringify(data)+  "</p>");
+                    return ;
+                  },
+                  error: function(data,x,y) {
+                    $('#results').append(data);
+                    return ;
+                  }
+                });
+      			} );
 
-  <div id="results">Your captured image will appear here...</div>
+      		}
+      	</script>
+      </div>
+      <div class="col-md-6 col-lg-6">
+         <div id="results">Your captured image will appear here...</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="bg-primary text-white mb-0" id="test_image">
+  <div class="container">
+    <h2 class="text-center text-uppercase text-white">Test Image</h2>
+    <hr class="star-light mb-5">
+    <div class="row">
+      <div class="col-md-6 col-lg-6">
+
+        <div id="camera_test"></div>
+        <form>
+          <input type=button value="Take Photo" onClick="camera_test()">
+        </form>
+
+        <script language="JavaScript">
+          Webcam.set({
+            width: 480,
+            height: 320,
+            image_format: 'jpeg',
+            jpeg_quality: 80
+          });
+          Webcam.attach( '#camera_test' );
+        </script>
+        <script language="JavaScript">
+          function camera_test() {
+            // take snapshot and get image data
+            Webcam.snap( function(data_uri) {
+              // display results in page
+              document.getElementById('results_test').innerHTML =
+                '<img height="240" width="160" src="'+data_uri+'"/>';
+                $.ajax({
+                  url: '/find',
+                  type: 'POST',
+                  data: {
+                    img: data_uri
+                  },
+                  timeout: 10000,
+                  success: function(data,x,y) {
+                    $('#results_test').html("<p>"+JSON.stringify(data)+  "</p>");
+                    return ;
+                  },
+                  error: function(data,x,y) {
+                    $('#results_test').html(data);
+                    return ;
+                  }
+                });
+            } );
+
+          }
+        </script>
+          </div>
+      <div class="col-md-6 col-lg-6">
+      <div id="results_test">Your captured image will appear here...</div>
+      </div>
+    </div>
+
+  </div>
+</section>
 
 
+
+
+
+<!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+<div class="scroll-to-top d-lg-none position-fixed ">
+  <a class="js-scroll-trigger d-block text-center text-white rounded" href="#page-top">
+    <i class="fa fa-chevron-up"></i>
+  </a>
 </div>
