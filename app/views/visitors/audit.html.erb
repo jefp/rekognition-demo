@@ -1,0 +1,37 @@
+<section class="audit" id="audit">
+  <div class="container">
+    <h2 class="text-center text-uppercase text-secondary mb-0">Faces in the collection:</h2>
+    <hr class="star-dark mb-5">
+    <div class="row">
+      <div class="col-md-12 col-lg-12">
+
+        <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Face id</th>
+      <th scope="col">external_image_id</th>
+      <th scope="col">confidence</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @faces.each do |face| %>
+    <tr>
+      <th scope="row"><%= face.face_id %></th>
+      <td><%= face.external_image_id %></td>
+      <td><%= face.confidence %></td>
+    </tr>
+    <%end%>
+  </tbody>
+</table>
+
+      </div>
+
+  <div class="col-md-12 col-lg-12">
+    <form action="/reset" method="post">
+      <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+      <button type="submit" class="btn btn-block btn-outline-danger">Reset collection</button>
+    </form>
+  </div>
+    </div>
+  </div>
+</section>

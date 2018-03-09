@@ -10,127 +10,34 @@
 <!-- Portfolio Grid Section -->
 <section class="add_image" id="add_image">
   <div class="container">
-    <h2 class="text-center text-uppercase text-secondary mb-0">Add image to collection</h2>
+    <h2 class="text-center text-uppercase text-secondary mb-0">Instructions</h2>
     <hr class="star-dark mb-5">
     <div class="row">
-      <div class="col-md-6 col-lg-6">
-        <div id="camera_add"></div>
-        <form>
-          Name: <input type="text" id="name" name="name" required/>
-      		<input type=button value="Take Photo" onClick="camera_add()">
-      	</form>
+      <div class="col-md-12 col-lg-12">
+        <h4>
+      <p>In this demo you will see
 
-        <script language="JavaScript">
-      		Webcam.set({
-      			width: 480,
-      			height: 320,
-      			image_format: 'jpeg',
-      			jpeg_quality: 80
-      		});
-      		Webcam.attach( '#camera_add' );
-      	</script>
+      <ul>
 
-      	<!-- Code to handle taking the snapshot and displaying it locally -->
-      	<script language="JavaScript">
-      		function camera_add() {
-            if (!$('#name').val().trim().length)
-              { alert("Please enter your name"); return; }
-      			// take snapshot and get image data
-      			Webcam.snap( function(data_uri) {
-      				// display results in page
-      				document.getElementById('results').innerHTML =
-      					'<img height="240" width="160" src="'+data_uri+'"/>';
-                $.ajax({
-                  url: '/add',
-                  type: 'POST',
-                  data: {
-                    img: data_uri,
-                    name: $('#name').val()
-                  },
-                  timeout: 10000,
-                  success: function(data,x,y) {
-                    $('#results').append("<p>"+JSON.stringify(data)+  "</p>");
-                    return ;
-                  },
-                  error: function(data,x,y) {
-                    $('#results').append(data);
-                    return ;
-                  }
-                });
-      			} );
+        <li>
+            How to create a collection (see the code at visitors_controller.rb)
+          </li>
+        <li>
+          How to add images to a collection using rekognition  (see the code at visitors_controller.rb method: add)
+        </li>  <li>
+            How to check if an image belongs to a collection (see the code at visitors_controller.rb method: find)
+          </li>
+          <li>
+              How to delete a collection (see the code at visitors_controller.rb method: reset)
+            </li>
 
-      		}
-      	</script>
+      </ul></p>
+</h4>
+            <%= image_tag("rekog.png", class: "img-fluid mb-5 d-block mx-auto") %>
       </div>
-      <div class="col-md-6 col-lg-6">
-         <div id="results">Your captured image will appear here...</div>
-      </div>
-
     </div>
   </div>
 </section>
-
-<section class="bg-primary text-white mb-0" id="test_image">
-  <div class="container">
-    <h2 class="text-center text-uppercase text-white">Test Image</h2>
-    <hr class="star-light mb-5">
-    <div class="row">
-      <div class="col-md-6 col-lg-6">
-
-        <div id="camera_test"></div>
-        <form>
-          <input type=button value="Take Photo" onClick="camera_test()">
-        </form>
-
-        <script language="JavaScript">
-          Webcam.set({
-            width: 480,
-            height: 320,
-            image_format: 'jpeg',
-            jpeg_quality: 80
-          });
-          Webcam.attach( '#camera_test' );
-        </script>
-        <script language="JavaScript">
-          function camera_test() {
-            // take snapshot and get image data
-            Webcam.snap( function(data_uri) {
-              // display results in page
-              document.getElementById('results_test').innerHTML =
-                '<img height="240" width="160" src="'+data_uri+'"/>';
-                $.ajax({
-                  url: '/find',
-                  type: 'POST',
-                  data: {
-                    img: data_uri
-                  },
-                  timeout: 10000,
-                  success: function(data,x,y) {
-                    $('#results_test').html("<p>"+JSON.stringify(data)+  "</p>");
-                    return ;
-                  },
-                  error: function(data,x,y) {
-                    $('#results_test').html(data);
-                    return ;
-                  }
-                });
-            } );
-
-          }
-        </script>
-          </div>
-      <div class="col-md-6 col-lg-6">
-      <div id="results_test">Your captured image will appear here...</div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-
-
-
-
 <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
 <div class="scroll-to-top d-lg-none position-fixed ">
   <a class="js-scroll-trigger d-block text-center text-white rounded" href="#page-top">
