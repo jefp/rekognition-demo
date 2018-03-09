@@ -11,6 +11,9 @@
           <input type=button value="Take Photo" id="take" onClick="camera_test()">
         </form>
 
+
+
+
         <script language="JavaScript">
               Webcam.set({
                 width: 480,
@@ -20,13 +23,14 @@
               });
               Webcam.attach( '#camera_test' );
         </script>
+
         <script language="JavaScript">
           function camera_test() {
             // take snapshot and get image data
             Webcam.snap( function(data_uri) {
               // display results in page
 
-                              $('#results_test').html("Processing.. Please wait..");
+              $('#results_test').html("Processing.. Please wait..");
               document.getElementById('camera_test').innerHTML =
       					'<img width="480" height="320" src="'+data_uri+'"/>';
                 $('#form_img').hide();

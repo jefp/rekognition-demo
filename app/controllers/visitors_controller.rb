@@ -61,7 +61,7 @@ end
    if response.face_matches.count > 1
     render json: {:message => "Too many faces found"}.to_json
    elsif response.face_matches.count == 0
-   render json: {:message => "No face detected!"}.to_json
+   render json: {:message => "Person not detected in collection!"}.to_json
    else
      # "Comparison finished - detected #{ response.face_matches[0].face.external_image_id } with #{ response.face_matches[0].face.confidence } accuracy."
    render json:   {:id => response.face_matches[0].face.external_image_id, :confidence => response.face_matches[0].face.confidence, :message => "Face found!"}.to_json
