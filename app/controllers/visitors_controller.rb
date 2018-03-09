@@ -16,7 +16,6 @@ class VisitorsController < ApplicationController
        },
         detection_attributes: ["ALL"]
      })
-
    puts response
    render :json => response.face_records.to_json
   end
@@ -38,7 +37,6 @@ class VisitorsController < ApplicationController
 def audit
   client = Aws::Rekognition::Client.new()
   @faces = client.list_faces({ collection_id: "faceapp_test" }).faces
-
 end
 
  def find

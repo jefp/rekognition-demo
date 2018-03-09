@@ -4,8 +4,7 @@
     <hr class="star-dark mb-5">
     <div class="row">
       <div class="col-md-6 col-lg-6">
-        <div id="camera_add"></div>
-
+        <div id="camera_add" style="height:0px"></div>
         <form id="form_img">
           Name: <input type="text" id="name" name="name" required/>
           <input hidden type="file" id="inpObject" accept="image/*" capture>
@@ -15,7 +14,6 @@
 
 
         <script language="JavaScript">
-      
       		    Webcam.set({
       		    	width: 480,
       		    	height: 320,
@@ -23,8 +21,6 @@
       		    	jpeg_quality: 80
       		    });
       		    Webcam.attach( '#camera_add' );
-
-
       	</script>
 
       	<!-- Code to handle taking the snapshot and displaying it locally -->
