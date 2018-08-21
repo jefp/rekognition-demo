@@ -16,8 +16,8 @@ cd -
 bundle
 
 openssl req -subj '/CN=demo.com/O=Amazon Rekognition/C=CL' -new -newkey rsa:2048 -sha256 -days 365 -nodes -x509 -keyout server.key -out server.crt
-mkdir -p /etc/nginx/ssl/certs/
-mv server.key server.crt /etc/nginx/ssl/certs/
+sudo mkdir -p /etc/nginx/ssl/certs/
+sudo mv server.key server.crt /etc/nginx/ssl/certs/
 
-mv ssl.conf /etc/nginx/conf.d
-service nginx restart
+sudo mv ssl.conf /etc/nginx/conf.d
+sudo service nginx restart
