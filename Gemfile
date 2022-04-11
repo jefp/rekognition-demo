@@ -7,7 +7,7 @@ gem "font-awesome-rails"
 gem 'aws-sdk', '~> 3'
 gem 'rails', '~> 5.1.1'
 gem 'sqlite3'
-gem 'nokogiri', '~> 1.8.1'
+gem 'nokogiri', '~> 1.13.4'
 gem 'puma', '~> 3.7'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
